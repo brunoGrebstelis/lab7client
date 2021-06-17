@@ -51,36 +51,36 @@ public class Client {
 				break;
 
 			case "insert":
-				if(met.getUserID()==-1) {
-					System.out.println("Login to insert person");
-				}else {
-					met.insert(null);
+				met.user();
+				if(met.getUserID()!=-1) {
+					met.insert();
+					met.setUserID();
 				}
 				break;
 
 			case "update":
-				if(met.getUserID()==-1) {
-					System.out.println("Login to remove person");
-				}else {
+				met.user();
+				if(met.getUserID()!=-1) {
 					if(met.remove(commands)) {
-						met.insert(null);
+						met.insert();
+						met.setUserID();
 					}
 				}
 				break;
 
 			case "remove":
-				if(met.getUserID()==-1) {
-					System.out.println("Login to remove person");
-				}else {
+				met.user();
+				if(met.getUserID()!=-1) {
 					met.remove(commands);
+					met.setUserID();
 				}
 				break;
 
 			case "clear":
-				if(met.getUserID()==-1) {
-					System.out.println("Login to clear elements you added");
-				}else {
+				met.user();
+				if(met.getUserID()!=-1) {
 					met.clear();
+					met.setUserID();
 				}
 				break;
 
@@ -89,10 +89,10 @@ public class Client {
 				break;
 
 			case "remove_greater":
-				if(met.getUserID()==-1) {
-					System.out.println("Login to use this operation");
-				}else {
+				met.user();
+				if(met.getUserID()!=-1) {
 					met.remove_greater();
+					met.setUserID();
 				}
 				break;
 
@@ -102,18 +102,20 @@ public class Client {
 				break;
 
 			case "replace_if_greater":
+				met.user();
 				if(met.getUserID()==-1) {
 					System.out.println("Login to use this operation");
 				}else {
 					met.replace_if_greater();
+					met.setUserID();
 				}
 				break;
 
 			case "remove_all_by_birthday":
-				if(met.getUserID()==-1) {
-					System.out.println("Login to use this operation");
-				}else {
+				met.user();
+				if(met.getUserID()!=-1) {
 					met.remove_all_by_birthday();
+					met.setUserID();
 				}
 				break;
 
@@ -136,19 +138,9 @@ public class Client {
 			case "exit":
 				outStream.writeObject(new Objects(commands));
 				break;
-				
-			case "user":
-				if(met.getLoginKey()==null) {
-					met.user();
-				}else {
-					System.out.println("You already are logged in as user: "+met.getLoginKey());
-				}
-				break;
+
 			case "newuser":
 				met.newuser();
-				
-			case "save":
-				met.save();
 				break;
 			}
 

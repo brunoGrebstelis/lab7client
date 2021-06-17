@@ -119,21 +119,15 @@ public class ExecuteMethod {
 		resMsgPO.info();
 	}
 
-	public void insert(Long id) throws Exception {
+	public void insert() throws Exception {
 		msg = new Objects("insert");
 		outStream.writeObject(msg);
-		resMsg = (Objects) inStream.readObject();
-		Long l = Long.valueOf(resMsg.message);
-		if (id == null) {
-			newPers = new EnterNewPerson(l);
-		} else {
-			newPers = new EnterNewPerson(id);
-		}
+		newPers = new EnterNewPerson(100);
 		newPers.getPersonInfo();
 		Person p = new Person(newPers.getID(), newPers.getName(), newPers.getCord(), newPers.getHeight(),
 				newPers.getPassportID(), newPers.getEyeColor(), newPers.getLocation(),getUserID());
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-		p.FsetDateTimeBirthString(LocalDate.parse(newPers.getBirthsday(), formatter));
+		p.FsetDateTimeBirthString(LocalDate.parse(newPers.getBirthsday(), formatter));		
 		outStream.writeObject(p);
 		resMsg = (Objects) inStream.readObject();
 		System.out.println(resMsg.message);
@@ -204,7 +198,7 @@ public class ExecuteMethod {
 		} while (resMsg.message.equals("1"));
 		resMsg = (Objects) inStream.readObject();
 		System.out.println(resMsg.message);
-		insert(Long.valueOf(com.getNewId()));
+		insert();
 	}
 
 	public void remove_all_by_birthday() throws Exception {
@@ -234,13 +228,6 @@ public class ExecuteMethod {
 		resMsgPO.print_field_descending_birthday();
 	}
 	
-	public void save() throws Exception {
-		msg = new Objects("save");
-		outStream.reset();
-		outStream.writeObject(msg);
-		resMsg = (Objects) inStream.readObject();
-		System.out.println(resMsg.message);
-	}
 	
 	public String getLoginKey() {
 		return this.loginKey;
@@ -248,6 +235,10 @@ public class ExecuteMethod {
 	
 	public int getUserID() {
 		return this.userID;
+	}
+	
+	public void setUserID() {
+		this.userID=-1;
 	}
 
 }
