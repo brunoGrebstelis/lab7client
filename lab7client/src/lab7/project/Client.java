@@ -52,7 +52,7 @@ public class Client {
 
 			case "insert":
 				met.user();
-				if(met.getUserID()!=-1) {
+				if (met.getUserID() != -1) {
 					met.insert();
 					met.setUserID();
 				}
@@ -60,8 +60,8 @@ public class Client {
 
 			case "update":
 				met.user();
-				if(met.getUserID()!=-1) {
-					if(met.remove(commands)) {
+				if (met.getUserID() != -1) {
+					if (met.remove(commands)) {
 						met.insert();
 						met.setUserID();
 					}
@@ -70,7 +70,7 @@ public class Client {
 
 			case "remove":
 				met.user();
-				if(met.getUserID()!=-1) {
+				if (met.getUserID() != -1) {
 					met.remove(commands);
 					met.setUserID();
 				}
@@ -78,7 +78,7 @@ public class Client {
 
 			case "clear":
 				met.user();
-				if(met.getUserID()!=-1) {
+				if (met.getUserID() != -1) {
 					met.clear();
 					met.setUserID();
 				}
@@ -90,7 +90,7 @@ public class Client {
 
 			case "remove_greater":
 				met.user();
-				if(met.getUserID()!=-1) {
+				if (met.getUserID() != -1) {
 					met.remove_greater();
 					met.setUserID();
 				}
@@ -103,9 +103,9 @@ public class Client {
 
 			case "replace_if_greater":
 				met.user();
-				if(met.getUserID()==-1) {
+				if (met.getUserID() == -1) {
 					System.out.println("Login to use this operation");
-				}else {
+				} else {
 					met.replace_if_greater();
 					met.setUserID();
 				}
@@ -113,7 +113,7 @@ public class Client {
 
 			case "remove_all_by_birthday":
 				met.user();
-				if(met.getUserID()!=-1) {
+				if (met.getUserID() != -1) {
 					met.remove_all_by_birthday();
 					met.setUserID();
 				}

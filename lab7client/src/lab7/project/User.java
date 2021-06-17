@@ -71,7 +71,7 @@ public class User {
 	}
 
 	public String inputKey() throws IOException {
-		long id=-1;
+		long id = -1;
 		reader = new BufferedReader(new InputStreamReader(System.in));
 		do {
 			System.out.println("Enter key from which you want to remove!");

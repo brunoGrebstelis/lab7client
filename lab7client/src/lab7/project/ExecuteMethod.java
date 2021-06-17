@@ -28,7 +28,7 @@ public class ExecuteMethod {
 	private InputStreamReader r2 = new InputStreamReader(System.in);
 	private BufferedReader br2 = new BufferedReader(r2);
 	private String loginKey = null;
-	private int userID=-1;
+	private int userID = -1;
 
 	public ExecuteMethod(ObjectOutputStream outStream, ObjectInputStream inStream) throws Exception {
 		this.outStream = outStream;
@@ -43,36 +43,38 @@ public class ExecuteMethod {
 			m.invoke(new ExecuteMethod(outStream, inStream));
 		}
 	}
-	
-	public void user()throws Exception {
+
+	public void user() throws Exception {
 		msg = new Objects("user");
 		outStream.reset();
 		outStream.writeObject(msg);
 		System.out.println("Enter your login!");
 		key = br2.readLine();
-		String l=key;
+		String l = key;
 		msg = new Objects(key);
 		outStream.reset();
 		outStream.writeObject(msg);
 		resMsg = (Objects) inStream.readObject();
-		if(resMsg.message.equals("1")) {
-			System.out.println("Login "+key+" does not exist! Would you like to create an accoun?[yes/no]");
-			if(br2.readLine().equals("yes")) {newuser();}
-		}else {
+		if (resMsg.message.equals("1")) {
+			System.out.println("Login " + key + " does not exist! Would you like to create an accoun?[yes/no]");
+			if (br2.readLine().equals("yes")) {
+				newuser();
+			}
+		} else {
 			System.out.println("Enter your password!");
 			outStream.reset();
 			outStream.writeObject(new Objects(br2.readLine()));
 			resMsg = (Objects) inStream.readObject();
-			if(resMsg.message.equals("-1")) {
+			if (resMsg.message.equals("-1")) {
 				System.out.println("Password incorrect, try again!");
-			}else{
-				System.out.println("Password ok! you are conected as: "+l);
-				userID=Integer.parseInt(resMsg.message);
-				loginKey=l;
+			} else {
+				System.out.println("Password ok! you are conected as: " + l);
+				userID = Integer.parseInt(resMsg.message);
+				loginKey = l;
 			}
 		}
 	}
-	
+
 	public void newuser() throws Exception {
 		String login;
 		String password;
@@ -83,17 +85,17 @@ public class ExecuteMethod {
 		password = br2.readLine();
 		System.out.println("Enter your password again!");
 		password2 = br2.readLine();
-		if(password.equals(password2)) {
+		if (password.equals(password2)) {
 			msg = new Objects("newuser");
 			outStream.reset();
 			outStream.writeObject(msg);
 			outStream.writeObject(new Objects(login));
 			outStream.writeObject(new Objects(password));
-			System.out.println("Account created login: "+login+" password: "+password);
-		}else {
+			System.out.println("Account created login: " + login + " password: " + password);
+		} else {
 			System.out.println("Password incorrect, try again!");
 		}
-		
+
 	}
 
 	public void help() throws Exception {
@@ -125,24 +127,22 @@ public class ExecuteMethod {
 		newPers = new EnterNewPerson(100);
 		newPers.getPersonInfo();
 		Person p = new Person(newPers.getID(), newPers.getName(), newPers.getCord(), newPers.getHeight(),
-				newPers.getPassportID(), newPers.getEyeColor(), newPers.getLocation(),getUserID());
+				newPers.getPassportID(), newPers.getEyeColor(), newPers.getLocation(), getUserID());
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-		p.FsetDateTimeBirthString(LocalDate.parse(newPers.getBirthsday(), formatter));		
+		p.FsetDateTimeBirthString(LocalDate.parse(newPers.getBirthsday(), formatter));
 		outStream.writeObject(p);
 		resMsg = (Objects) inStream.readObject();
 		System.out.println(resMsg.message);
 	}
 
-
 	public boolean remove(String rem) throws Exception {
 		boolean result = false;
 		msg = new Objects("remove");
-		outStream.writeObject(msg);	
+		outStream.writeObject(msg);
 		msg = new Objects(com.inputID(rem));
 		outStream.writeObject(msg);
 		resMsg = (Objects) inStream.readObject();
 		String m = resMsg.message;
-		System.out.println(m);
 		if (m.equals("1")) {
 			System.out.println("Acces to this element denide!");
 			resMsg = (Objects) inStream.readObject();
@@ -154,10 +154,10 @@ public class ExecuteMethod {
 		if (m.equals("3")) {
 			resMsg = (Objects) inStream.readObject();
 			System.out.println(resMsg.message);
-			result =true;
+			result = true;
 		}
 		return result;
-		
+
 	}
 
 	public void remove_greater() throws Exception {
@@ -227,18 +227,17 @@ public class ExecuteMethod {
 		resMsgPO = (PrintOut) inStream.readObject();
 		resMsgPO.print_field_descending_birthday();
 	}
-	
-	
+
 	public String getLoginKey() {
 		return this.loginKey;
 	}
-	
+
 	public int getUserID() {
 		return this.userID;
 	}
-	
+
 	public void setUserID() {
-		this.userID=-1;
+		this.userID = -1;
 	}
 
 }
